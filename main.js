@@ -177,6 +177,8 @@ class SVGButton {
         this.svg.setAttributeNS(null, "id", this.button.key);
         this.svg.addEventListener("mousedown", buttonDown, false);
         this.svg.addEventListener("mouseup", buttonUp, false);
+        this.svg.addEventListener("touchstart", buttonDown, false);
+        this.svg.addEventListener("touchend", buttonUp, false);
 
         var rect = doc.createElementNS(svgNS, 'rect');
         rect.setAttributeNS(null, "x", this.button.origin.x);
