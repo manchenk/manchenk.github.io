@@ -382,17 +382,18 @@ window.onload = function() {
     trace = document.getElementById('trace-info')
     calc = new Calculator(document)
 
-    // setTimeout(onCoreStep, 1)
-    setInterval(onCoreStep, 1);
+    setTimeout(onCoreStep, 10)
+    //setInterval(onCoreStep, 1);
 }
 
 function onCoreStep() {
     calc.trace(trace.checked)
 
-    calc.update(key)
-
-    if (count > 0) --count
-    else key = 0
-
-    //setTimeout(onCoreStep, 1)
+    var i
+    for (i = 0; i < 25; ++i) {
+        calc.update(key)
+        if (count > 0) --count
+        else key = 0
+    }
+    setTimeout(onCoreStep, 1)
 }

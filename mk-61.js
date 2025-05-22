@@ -171,6 +171,7 @@ class SVGDigit {
         }
     }
     setValue(data) {
+        var upd = false
         if (data != this.#prev_data) {
             this.#prev_data = data
             var i
@@ -181,7 +182,9 @@ class SVGDigit {
                 else 
                     segment.segment.setAttribute("style", "fill:#2c2c2c;stroke:#2c2c2c;stroke-width:2")
             }
+            upd = true
         }
+        return upd
     }
 }
 
@@ -213,9 +216,11 @@ class SVGDisplay {
         for (i = 0; i < data.length; ++i) {
             if (pos[i] >= 0) sym[pos[i]] |= data[i]
         }
+        var upd = false
         for (i = 0; i < sym.length; ++i) {
-            this.ranks[i].setValue(sym[i])
+            upd |= this.ranks[i].setValue(sym[i])
         }
+        return upd
     }
     insertAt(parent) {
         parent.appendChild(this.disp)
@@ -404,8 +409,9 @@ class Calculator {
         this.#mem1.D = this.#mem0.D
         this.#mem0.D = m
 
-        this.#display.setValues(this.#core0.Display)
+        const upd = this.#display.setValues(this.#core0.Display)
         this.#log.output()
+        return upd
     }
 
     trace(ena) {
@@ -462,16 +468,19 @@ window.onload = function() {
 
     calc.trace(true)
 
-    setInterval(onCoreStep, 1)
-//    onCoreStep()
+    //setInterval(onCoreStep, 1)
+    setTimeout(onCoreStep, 10)
 }
 
 function onCoreStep() {
     const trace = document.getElementById('trace-info')
     calc.trace(trace.checked)
 
-    calc.update(key, mode)
-
-//    if (count > 0) --count
-//    else key = 0
+    var i
+    for (i = 0; i < 25; ++i) {
+        if (calc.update(key, mode)) break;
+        //if (count > 0) --count
+        //else key = 0
+    }
+    setTimeout(onCoreStep, 1)
 }

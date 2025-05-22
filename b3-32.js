@@ -465,15 +465,20 @@ window.onload = function() {
     trace = document.getElementById('trace-info')
     calc = new Calculator(document)
 
-    setInterval(onCoreStep, 1)
-//    onCoreStep()
+    //setInterval(onCoreStep, 1)
+    setTimeout(onCoreStep, 10)
 }
 
 function onCoreStep() {
     calc.trace(trace.checked)
 
-    calc.update(key, mode)
+    var i
+    for (i = 0; i < 25; ++i) {
+        calc.update(key, mode)
 
-    if (count > 0) --count
-    else key = 0
+        if (count > 0) --count
+        else key = 0
+    }
+
+    setTimeout(onCoreStep, 1)
 }

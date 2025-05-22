@@ -285,15 +285,17 @@ class Calculator {
 var trace = null
 var core = null
 var calc = null
+var count = 0
 var key = 0
 
 function buttonDown(event) {
     key = event.target.parentElement.id
+    count = 7
     event.preventDefault()
 }
 
 function buttonUp(event) {
-    key = 0
+    //key = 0
     event.preventDefault()
 }
 
@@ -302,10 +304,17 @@ window.onload = function() {
 
     calc = new Calculator(document)
 
-    setInterval(onCoreStep, 1)
+    //setInterval(onCoreStep, 1)
+    setTimeout(onCoreStep, 10)
 };
 
 function onCoreStep() {
     calc.trace(trace.checked)
-    calc.update(key)
+    var i
+    for (i = 0; i < 25; ++i) {
+        calc.update(key)
+        if (count > 0) --count
+        else key = 0
+    }
+    setTimeout(onCoreStep, 1)
 }

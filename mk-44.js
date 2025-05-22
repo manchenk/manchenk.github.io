@@ -418,15 +418,19 @@ window.onload = function() {
     trace = document.getElementById('trace-info')
     calc = new Calculator(document)
 
-    setInterval(onCoreStep, 1)
-//    onCoreStep()
+    setTimeout(onCoreStep, 10)
 }
 
 function onCoreStep() {
     calc.trace(trace.checked)
 
-    calc.update(key, [modeAp, modeFix])
+    var i
+    for (i = 0; i < 25; ++i) {
+        calc.update(key, [modeAp, modeFix])
 
-    if (count > 0) --count
-    else key = 0
+        if (count > 0) --count
+        else key = 0
+    }
+    setTimeout(onCoreStep, 1)
+
 }
