@@ -557,9 +557,9 @@ class Accumulator {
     // обработка клавиатуры
     keypad(cmd) {
         // Номер текущего цикла Д
-        var di = this.#index
+        var di = this.#index / SProgram.phases | 0
         // Номер цикла Д соответствующего нажатой клавише
-        var dk = (this.#key & 0xf) * SProgram.phases
+        var dk = this.#key & 0xf
         // Состояние линий К1 и К2 (биты 0 и 1 соответственно)
         var k = di == dk ? (this.#key >> 4) & 0x9 : 0
         // состояние регистров T и Q изменяется только 
@@ -568,6 +568,10 @@ class Accumulator {
         if ((di == 0 || k != 0) && cmd.IsKeypad) {
             this.#t = k != 0
             this.#q = k
+        }
+        // на последнем цикле Д, если не установлен флаг Т происходит очистка регистра Q
+        if (di == Accumulator.cycles / SProgram.phases - 1 && !this.#t) {
+            this.#q = 0
         }
     }
 

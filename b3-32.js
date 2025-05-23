@@ -407,7 +407,7 @@ class Calculator {
 
         this.#log = new Logger()
 
-        this.#core = new Core(0, "K145IK2P", this.#log, COMMANDS, SPROGS, UCMDS, SEGMENTS, MNEMONICS, COMMENTS)
+        this.#core = new Core(0, "K145IK1301", this.#log, COMMANDS, SPROGS, UCMDS, SEGMENTS, MNEMONICS, COMMENTS)
         //this.#core.list()
 
         this.document.body.appendChild(this.board)
