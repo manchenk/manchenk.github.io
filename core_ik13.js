@@ -570,9 +570,10 @@ class Accumulator {
             this.#q = k
         }
         // на последнем цикле Д, если не установлен флаг Т происходит очистка регистра Q
-        if (di == Accumulator.cycles / SProgram.phases - 1 && !this.#t) {
-            this.#q = 0
-        }
+        // этому коду нужно уделить больше внимания
+        //if (di == Accumulator.cycles / SProgram.phases - 1 && !this.#t) {
+        //    this.#q = 0
+        //}
     }
 
     // обработка входа установки режима
